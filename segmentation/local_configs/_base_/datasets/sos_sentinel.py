@@ -1,12 +1,3 @@
-# SOS dataset (CBD-Net) - Sentinel-1 subset
-# Paper §4.1/§4.2: native 256×256 tiles, no extra pre-processing;
-# normalize with training-set mean/std.
-#
-# Expected layout under data_root:
-#   train/sentinel/        -> {id}_sat.jpg, {id}_mask.png
-#   test/sentinel/sat/     -> {id}_sat.jpg
-#   test/sentinel/gt/      -> {id}_mask.png
-
 dataset_type = 'SOSSegDataset'
 data_root = 'data/SOS'
 
@@ -15,7 +6,6 @@ seg_map_suffix = '_mask.png'
 classes = ('background', 'oil_spill')
 palette = [[0, 0, 0], [255, 0, 0]]
 
-# Paper §4.2: mean/std from Sentinel-1 training split (3354 images, RGB).
 img_norm_cfg = dict(
     mean=[97.942, 97.942, 97.942],
     std=[51.470, 51.470, 51.470],

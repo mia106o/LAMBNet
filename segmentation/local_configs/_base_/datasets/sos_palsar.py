@@ -1,12 +1,3 @@
-# SOS dataset (CBD-Net) - PALSAR subset
-# Paper §4.1/§4.2: native 256×256 tiles, no extra pre-processing;
-# normalize with training-set mean/std.
-#
-# Expected layout under data_root:
-#   train/palsar/          -> {id}_sat.jpg, {id}_mask.png
-#   test/palsar/sat/       -> {id}_sat.jpg
-#   test/palsar/gt/        -> {id}_mask.png
-
 dataset_type = 'SOSSegDataset'
 data_root = 'data/SOS'
 
@@ -15,7 +6,6 @@ seg_map_suffix = '_mask.png'
 classes = ('background', 'oil_spill')
 palette = [[0, 0, 0], [255, 0, 0]]
 
-# Paper §4.2: mean/std from PALSAR training split (3101 images, RGB).
 img_norm_cfg = dict(
     mean=[119.684, 119.684, 119.684],
     std=[55.173, 55.173, 55.173],

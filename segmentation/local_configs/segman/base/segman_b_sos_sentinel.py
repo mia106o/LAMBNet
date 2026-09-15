@@ -1,4 +1,3 @@
-# LAMB-Net on SOS-Sentinel-1 — same paper hyper-params as tiny (Encoder-T is the paper backbone)
 _base_ = [
     '../../_base_/models/segman.py',
     '../../_base_/datasets/sos_sentinel.py',
@@ -20,8 +19,8 @@ model = dict(
         type='SegMANDecoder',
         in_channels=[32, 64, 144, 192],
         in_index=[0, 1, 2, 3],
-        channels=256,
-        feat_proj_dim=256,
+        channels=128,
+        feat_proj_dim=128,
         image_size=256,
         dropout_ratio=0.1,
         num_classes=2,

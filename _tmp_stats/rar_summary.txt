@@ -1,7 +1,0 @@
-total_files=16151
-sats=8070
-sample='train\\palsar\\10777_sat.jpg'
-3354	train\sentinel
-3101	train\palsar
-839	test\sentinel
-776	test\palsar

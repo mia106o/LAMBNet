@@ -1,5 +1,3 @@
-# LAMB-Net on M4D (5-class), aligned with YanMiao_Manuscript_v2
-# Softmax head; multi-class BCE→CCE + Tversky + Boundary + GP (Eq.11–16)
 _base_ = [
     '../../_base_/models/segman.py',
     '../../_base_/datasets/m4d.py',
@@ -21,8 +19,8 @@ model = dict(
         type='SegMANDecoder',
         in_channels=[32, 64, 144, 192],
         in_index=[0, 1, 2, 3],
-        channels=256,
-        feat_proj_dim=256,
+        channels=128,
+        feat_proj_dim=128,
         image_size=256,
         dropout_ratio=0.1,
         num_classes=5,
@@ -32,7 +30,6 @@ model = dict(
         use_msaf=True,
         use_bem=True,
         edge_type='sobel',
-        # Paper Eq.(11): λ1=1.0, λ2=0.8, λ3=0.4, λ4=0.2; α=0.3, β=0.7
         loss_decode=[
             dict(
                 type='CrossEntropyLoss',
@@ -57,7 +54,6 @@ model = dict(
                 loss_name='loss_gp',
                 loss_weight=0.2),
         ]),
-    # Paper §4.2: 256×256 sliding-window tiling at inference
     test_cfg=dict(mode='slide', crop_size=(256, 256), stride=(170, 170)))
 
 optimizer = dict(

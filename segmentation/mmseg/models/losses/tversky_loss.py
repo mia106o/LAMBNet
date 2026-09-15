@@ -1,7 +1,4 @@
-# Copyright (c) OpenMMLab. All rights reserved.
-"""Modified from
-https://github.com/JunMa11/SegLoss/blob/master/losses_pytorch/dice_loss.py#L333
-(Apache-2.0 License)"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -19,10 +16,6 @@ def tversky_loss(pred,
                  smooth=1,
                  class_weight=None,
                  ignore_index=255):
-    """Args:
-        pred: (N, C, H, W) probabilities
-        target: (N, H, W, C) one-hot
-    """
     assert pred.shape[0] == target.shape[0]
     total_loss = 0
     num_classes = pred.shape[1]
@@ -63,11 +56,6 @@ def binary_tversky_loss(pred,
 
 @LOSSES.register_module()
 class TverskyLoss(nn.Module):
-    """TverskyLoss (paper §3.5: α=0.3, β=0.7).
-
-    Binary SOS: use_sigmoid=True with 1-channel logits.
-    Multi-class M4D: use_sigmoid=False (softmax) over C classes.
-    """
 
     def __init__(self,
                  smooth=1,
@@ -98,10 +86,8 @@ class TverskyLoss(nn.Module):
         valid_mask = (target != self.ignore_index).long()
 
         if self.use_sigmoid or pred.shape[1] == 1:
-            # Paper binary SOS: sigmoid oil probability (Eq.7)
             probs = torch.sigmoid(pred)
             if pred.shape[1] == 1:
-                # target one-hot along last dim: (N,H,W,1)
                 one_hot_target = (target == 1).float().unsqueeze(-1)
             else:
                 num_classes = pred.shape[1]
@@ -118,7 +104,6 @@ class TverskyLoss(nn.Module):
                 class_weight=class_weight,
                 ignore_index=self.ignore_index)
 
-        # Paper multi-class M4D: softmax (Eq.13)
         probs = F.softmax(pred, dim=1)
         num_classes = probs.shape[1]
         one_hot_target = F.one_hot(

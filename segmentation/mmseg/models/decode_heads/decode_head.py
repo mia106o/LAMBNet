@@ -130,7 +130,6 @@ class BaseDecodeHead(BaseModule, metaclass=ABCMeta):
         else:
             self.sampler = None
 
-        # Binary sigmoid head (paper SOS): out_channels=1; multi-class: =num_classes
         self.conv_seg = nn.Conv2d(channels, self.out_channels, kernel_size=1)
         if dropout_ratio > 0:
             self.dropout = nn.Dropout2d(dropout_ratio)

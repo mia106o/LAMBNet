@@ -7,7 +7,6 @@ from .pipelines.loading import format_sos_seg_map
 
 @DATASETS.register_module()
 class SOSSegDataset(CustomDataset):
-    """SOS (CBD-Net) oil spill segmentation dataset."""
 
     CLASSES = ('background', 'oil_spill')
     PALETTE = [[0, 0, 0], [255, 0, 0]]
